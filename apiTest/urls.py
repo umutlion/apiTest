@@ -1,18 +1,9 @@
-from django.contrib import admin
-from django.urls import path, include
-from .views import post_list, post_detail, PostAPIView, PostDetails, GenericAPIView, PostViewSet
+from .views import PostViewSet, CategoryViewSet
+
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('post', PostViewSet, basename='post')
+router.register('posts', PostViewSet, basename='post')
+router.register('categories', CategoryViewSet, basename='category')
 
-urlpatterns = [
-    #path('post/', post_list),
-    path('post/', PostAPIView.as_view()),
-    #path('post/<int:pk>/', post_detail),
-    path('detail/<int:id>/', PostDetails.as_view()),
-    path('generic/post/<int:id>/', GenericAPIView.as_view()),
-    path('viewset/', include(router.urls)),
-    path('viewset/<int:pk>/', include(router.urls)),
-
-]
+urlpatterns = router.urls
